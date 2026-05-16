@@ -2107,11 +2107,15 @@ function setSyncStatus(msg) {
 
 function saveFBUrl() {
   const inp = document.getElementById('fb-url-input');
-  const url = inp ? inp.value.trim() : '';
+  let url = inp ? inp.value.trim() : '';
   if(!url || !url.startsWith('http')) { toast('❌ Podaj prawidłowy URL'); return; }
+  // Usuń trailing slash, dodaj /data.json jeśli nie ma
+  url = url.replace(/\/+$/, '');
+  if(!url.endsWith('.json')) url += '/data.json';
   FB_URL = url;
+  if(inp) inp.value = url;
   localStorage.setItem('wiflux_fb_url', url);
-  toast('✓ URL zapisany! Synchronizacja aktywna.');
+  toast('✓ URL zapisany! Łączenie...');
   syncData();
   startRealtimeSync();
 }
