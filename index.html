@@ -1443,7 +1443,9 @@ input::placeholder { color: var(--text3); }
 <div class="toast" id="toast"></div>
 
 <script>
-const DB_URL = "https://kvdb.io/MN8WTL69asVf3p6Yp4N77D/wiflux_state_v3";
+const BIN_ID = "6a08cf2e250b1311c35e42aa";
+const API_KEY = "$2a$10$pl2VTjrLjyOhVeayvqnub.X.KNbNET/a74aLX0KqYKt9uFwnlTu6O";
+const DB_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
 
 const INITIAL_STOCKS = {
   'Blueberry / Raspberry Pomegranate': 6, 'Apple / Peach': 6, 'Strawberry / Watermelon': 6,
@@ -1629,12 +1631,15 @@ async function init() {
 async function syncData() {
   if (isSaving) return;
   try {
-    const res = await fetch(DB_URL);
+    const res = await fetch(DB_URL + '/latest', {
+      headers: { 'X-Master-Key': API_KEY }
+    });
     if(!res.ok) return;
     const d = await res.json();
-    if (d && d.state) {
-      state = { buyers: [...DEF_BUYERS], orders: [], sales: [], flavors: DEF_FLAVORS(), ...d.state };
-      if (d.settings) cfg = { ...DEF_SETTINGS, ...d.settings };
+    const record = d.record;
+    if (record && record.state) {
+      state = { buyers: [...DEF_BUYERS], orders: [], sales: [], flavors: DEF_FLAVORS(), ...record.state };
+      if (record.settings) cfg = { ...DEF_SETTINGS, ...record.settings };
       renderAll();
     }
   } catch(e) {}
@@ -1644,8 +1649,11 @@ async function persist() {
   isSaving = true;
   try {
     await fetch(DB_URL, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
+      method: 'PUT',
+      headers: {
+        'Content-Type': 'application/json',
+        'X-Master-Key': API_KEY
+      },
       body: JSON.stringify({ state, settings: cfg })
     });
   } catch(e) {
