@@ -1662,10 +1662,33 @@ input::placeholder { color: var(--text3); }
           </div>
         </div>
         <div class="card" style="border-color:var(--border);">
+          <div class="card-hd">🔗 Synchronizacja w czasie rzeczywistym</div>
+          <div class="set-row">
+            <div>
+              <div class="set-lbl">Firebase URL</div>
+              <div class="set-desc">Wklej URL swojej bazy Firebase Realtime Database</div>
+            </div>
+          </div>
+          <div style="display:flex;gap:8px;margin-bottom:10px;flex-wrap:wrap;">
+            <input type="text" id="fb-url-input" placeholder="https://TWÓJ-PROJEKT-default-rtdb.firebaseio.com/data.json"
+              style="flex:1;min-width:200px;font-size:12px;" />
+            <button class="btn btn-p btn-sm" onclick="saveFBUrl()">Zapisz URL</button>
+          </div>
+          <div style="background:var(--surface2);border:1px solid var(--border);border-radius:var(--r-sm);padding:14px 16px;font-size:12px;color:var(--text3);line-height:1.9;">
+            <strong style="color:var(--text2);">Jak skonfigurować (2 minuty):</strong><br>
+            1. Wejdź na <a href="https://console.firebase.google.com" target="_blank" style="color:var(--accent2);">console.firebase.google.com</a><br>
+            2. Utwórz projekt → Realtime Database → Utwórz bazę<br>
+            3. Reguły: zmień na <code style="color:var(--green-text);">".read": true, ".write": true</code><br>
+            4. Skopiuj URL bazy (np. <code>https://xxx-rtdb.firebaseio.com</code>) i dodaj <code>/data.json</code><br>
+            5. Wklej tutaj i kliknij Zapisz URL
+          </div>
+          <div id="sync-status" style="margin-top:10px;font-size:12px;color:var(--text3);">Status: sprawdzanie...</div>
+        </div>
+        <div class="card" style="border-color:var(--border);">
           <div class="card-hd">Wersja systemu</div>
           <div style="color:var(--text3);font-size:12px;line-height:1.8;">
-            Wiflux Live Sales OS · v4.2<br>
-            Synchronizacja: kvdb.io · Auto-sync co 4s<br>
+            Wiflux Live Sales OS · v4.3<br>
+            Synchronizacja: Firebase Realtime DB · Instant push<br>
             Dane lokalne: localStorage
           </div>
         </div>
@@ -1777,7 +1800,9 @@ input::placeholder { color: var(--text3); }
 <div class="toast" id="toast"></div>
 
 <script>
-const DB_URL = "https://kvdb.io/MN8WTL69asVf3p6Yp4N77D/wiflux_state_v3";
+// ── FIREBASE REALTIME DATABASE ──
+// URL ładowany z localStorage (ustawiany w Ustawienia → Synchronizacja)
+let FB_URL = localStorage.getItem('wiflux_fb_url') || "";
 
 const INITIAL_STOCKS = {
   'Blueberry / Raspberry Pomegranate': 6, 'Apple / Peach': 6, 'Strawberry / Watermelon': 6,
@@ -1952,43 +1977,143 @@ async function init() {
     const nameMap = { szymon: 'Szymon', kuba: 'Kuba' };
     document.getElementById('user-session-badge').textContent = `Live Sales OS · ${nameMap[u] || u}`;
   }
-  toast('Synchronizacja danych...');
-  await syncData();
-  document.getElementById('s-cost').value = cfg.cost;
-  document.getElementById('s-price').value = cfg.price;
-  document.getElementById('s-batch').value = cfg.batch;
-  document.getElementById('s-alert').value = cfg.alert;
+
+  // Przywróć URL Firebase z localStorage
+  const savedUrl = localStorage.getItem('wiflux_fb_url') || '';
+  if(savedUrl) {
+    FB_URL = savedUrl;
+    const inp = document.getElementById('fb-url-input');
+    if(inp) inp.value = savedUrl;
+    toast('Synchronizacja danych...');
+    await syncData();
+    startRealtimeSync();
+  } else {
+    // Spróbuj załadować z lokalnego cache
+    try {
+      const local = localStorage.getItem('wiflux_local_state');
+      if(local) {
+        const d = JSON.parse(local);
+        if(d.state) state = { buyers: [...DEF_BUYERS], orders: [], sales: [], flavors: DEF_FLAVORS(), ...d.state };
+        if(d.settings) cfg = { ...DEF_SETTINGS, ...d.settings };
+      }
+    } catch(e) {}
+    setSyncStatus('⚠️ Brak URL — ustaw Firebase w Ustawieniach');
+    toast('⚠️ Ustaw Firebase URL w Ustawieniach!');
+  }
+
+  updateSettingsInputs();
   renderAll();
-  setInterval(syncData, 4000);
+}
+
+function startRealtimeSync() {
+  if(!FB_URL) return;
+  // Firebase Realtime DB obsługuje SSE natywnie — instant push dla drugiej osoby
+  try {
+    const sseUrl = FB_URL;
+    const sse = new EventSource(sseUrl);
+    sse.addEventListener('put', e => {
+      if (isSaving) return;
+      try {
+        const msg = JSON.parse(e.data);
+        const d = msg.data;
+        if (d && d.state) {
+          state = { buyers: [...DEF_BUYERS], orders: [], sales: [], flavors: DEF_FLAVORS(), ...d.state };
+          if (d.settings) cfg = { ...DEF_SETTINGS, ...d.settings };
+          renderAll();
+          updateSettingsInputs();
+        }
+      } catch(err) {}
+    });
+    sse.addEventListener('patch', e => {
+      if (isSaving) return;
+      try {
+        const msg = JSON.parse(e.data);
+        const d = msg.data;
+        if (d && d.state) {
+          state = { ...state, ...d.state };
+          if (d.settings) cfg = { ...cfg, ...d.settings };
+          renderAll();
+          updateSettingsInputs();
+        }
+      } catch(err) {}
+    });
+    sse.onerror = () => {
+      sse.close();
+      // Fallback polling co 2s gdy SSE padnie
+      setInterval(() => syncData(), 2000);
+    };
+  } catch(e) {
+    setInterval(() => syncData(), 2000);
+  }
+}
+
+function updateSettingsInputs() {
+  const sc = document.getElementById('s-cost');
+  const sp = document.getElementById('s-price');
+  const sb = document.getElementById('s-batch');
+  const sa = document.getElementById('s-alert');
+  if(sc) sc.value = cfg.cost;
+  if(sp) sp.value = cfg.price;
+  if(sb) sb.value = cfg.batch;
+  if(sa) sa.value = cfg.alert;
 }
 
 async function syncData() {
-  if (isSaving) return;
+  if (isSaving || !FB_URL) return;
   try {
-    const res = await fetch(DB_URL);
+    const res = await fetch(FB_URL, { cache: 'no-store' });
     if(!res.ok) return;
     const d = await res.json();
     if (d && d.state) {
       state = { buyers: [...DEF_BUYERS], orders: [], sales: [], flavors: DEF_FLAVORS(), ...d.state };
       if (d.settings) cfg = { ...DEF_SETTINGS, ...d.settings };
       renderAll();
+      updateSettingsInputs();
     }
-  } catch(e) {}
+    setSyncStatus('✅ Połączono · ' + new Date().toLocaleTimeString('pl-PL'));
+  } catch(e) {
+    setSyncStatus('❌ Błąd połączenia');
+  }
 }
 
 async function persist() {
+  if (!FB_URL) {
+    // Brak URL — zapisz tylko lokalnie
+    try { localStorage.setItem('wiflux_local_state', JSON.stringify({ state, settings: cfg })); } catch(e) {}
+    toast('⚠️ Ustaw Firebase URL w Ustawienia → Synchronizacja!');
+    return;
+  }
   isSaving = true;
   try {
-    await fetch(DB_URL, {
-      method: 'POST',
+    const res = await fetch(FB_URL, {
+      method: 'PUT',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ state, settings: cfg })
     });
+    if (!res.ok) throw new Error('HTTP ' + res.status);
+    setSyncStatus('✅ Zapisano · ' + new Date().toLocaleTimeString('pl-PL'));
   } catch(e) {
-    toast('❌ Błąd zapisu chmury!');
+    toast('❌ Błąd zapisu! Sprawdź URL Firebase.');
+    setSyncStatus('❌ Błąd zapisu');
   } finally {
     isSaving = false;
   }
+}
+
+function setSyncStatus(msg) {
+  const el = document.getElementById('sync-status');
+  if(el) el.textContent = 'Status: ' + msg;
+}
+
+function saveFBUrl() {
+  const inp = document.getElementById('fb-url-input');
+  const url = inp ? inp.value.trim() : '';
+  if(!url || !url.startsWith('http')) { toast('❌ Podaj prawidłowy URL'); return; }
+  FB_URL = url;
+  localStorage.setItem('wiflux_fb_url', url);
+  toast('✓ URL zapisany! Synchronizacja aktywna.');
+  syncData();
+  startRealtimeSync();
 }
 
 // ── HELPERS ──
