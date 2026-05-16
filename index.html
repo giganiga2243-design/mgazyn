@@ -1064,6 +1064,218 @@ input::placeholder { color: var(--text3); }
 .preview-val { font-size: 20px; font-weight: 700; letter-spacing: -0.03em; }
 .preview-val.g { color: var(--green-text); }
 .preview-val.p { color: var(--accent2); }
+
+/* ── PAYMENT METHOD TOGGLE ── */
+.pay-toggle {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+  margin-bottom: 4px;
+}
+.pay-btn {
+  flex: 1;
+  min-width: 90px;
+  padding: 10px 12px;
+  border: 1px solid var(--border2);
+  border-radius: var(--r-sm);
+  font-family: 'Inter', sans-serif;
+  font-size: 12px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  background: var(--surface2);
+  color: var(--text2);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  letter-spacing: -0.01em;
+}
+.pay-btn:hover { background: var(--surface3); color: var(--text); }
+.pay-btn.active-blik {
+  background: linear-gradient(135deg, rgba(0,214,143,0.2) 0%, rgba(0,184,119,0.08) 100%);
+  color: var(--green-text);
+  border-color: var(--green-border);
+  box-shadow: 0 0 12px rgba(0,214,143,0.1);
+}
+.pay-btn.active-cash {
+  background: linear-gradient(135deg, rgba(240,165,0,0.2) 0%, rgba(240,165,0,0.08) 100%);
+  color: var(--amber-text);
+  border-color: var(--amber-border);
+  box-shadow: 0 0 12px rgba(240,165,0,0.1);
+}
+.pay-btn.active-vinted {
+  background: linear-gradient(135deg, rgba(9,176,140,0.22) 0%, rgba(9,176,140,0.08) 100%);
+  color: #09b08c;
+  border-color: rgba(9,176,140,0.35);
+  box-shadow: 0 0 12px rgba(9,176,140,0.12);
+}
+
+/* payment badge in history */
+.pay-badge {
+  font-size: 10px;
+  font-weight: 700;
+  padding: 2px 7px;
+  border-radius: 8px;
+  letter-spacing: 0.03em;
+}
+.pb-blik { background: var(--green-bg); color: var(--green-text); border: 1px solid var(--green-border); }
+.pb-cash { background: var(--amber-bg); color: var(--amber-text); border: 1px solid var(--amber-border); }
+.pb-vinted { background: rgba(9,176,140,0.1); color: #09b08c; border: 1px solid rgba(9,176,140,0.3); }
+
+/* payment stats */
+.pay-stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 10px;
+  margin-top: 4px;
+}
+.pay-stat {
+  background: var(--surface2);
+  border: 1px solid var(--border);
+  border-radius: var(--r-sm);
+  padding: 14px 16px;
+  text-align: center;
+}
+.pay-stat-icon { font-size: 18px; margin-bottom: 5px; }
+.pay-stat-lbl { font-size: 10px; color: var(--text3); text-transform: uppercase; letter-spacing: 0.06em; margin-bottom: 4px; }
+.pay-stat-val { font-size: 18px; font-weight: 800; letter-spacing: -0.03em; }
+.pay-stat-count { font-size: 11px; color: var(--text3); margin-top: 2px; }
+
+/* ── VINTED LABELS PAGE ── */
+.label-drop-zone {
+  border: 2px dashed var(--border3);
+  border-radius: var(--r);
+  padding: 32px 20px;
+  text-align: center;
+  cursor: pointer;
+  transition: all 0.2s;
+  background: var(--surface2);
+  position: relative;
+  overflow: hidden;
+}
+.label-drop-zone:hover, .label-drop-zone.drag-over {
+  border-color: #09b08c;
+  background: rgba(9,176,140,0.06);
+}
+.label-drop-zone-icon { font-size: 40px; margin-bottom: 12px; opacity: 0.6; }
+.label-drop-title { font-size: 14px; font-weight: 600; margin-bottom: 4px; color: var(--text); }
+.label-drop-desc { font-size: 12px; color: var(--text3); }
+
+.label-gallery {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+  gap: 12px;
+  margin-top: 14px;
+}
+.label-card {
+  background: var(--surface2);
+  border: 1px solid var(--border2);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+  transition: all 0.2s;
+  position: relative;
+}
+.label-card:hover { border-color: #09b08c; transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,0.3); }
+.label-card img { width: 100%; display: block; aspect-ratio: 1/1; object-fit: contain; background: #fff; padding: 8px; }
+.label-card-footer {
+  padding: 8px 10px;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 6px;
+}
+.label-name { font-size: 11px; color: var(--text2); overflow: hidden; text-overflow: ellipsis; white-space: nowrap; flex: 1; }
+.label-actions { display: flex; gap: 4px; }
+.label-print-btn {
+  padding: 4px 8px;
+  font-size: 11px;
+  font-weight: 600;
+  border-radius: 6px;
+  border: 1px solid rgba(9,176,140,0.3);
+  background: rgba(9,176,140,0.1);
+  color: #09b08c;
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.label-print-btn:hover { background: rgba(9,176,140,0.2); }
+.label-del-btn {
+  padding: 4px 8px;
+  font-size: 11px;
+  border-radius: 6px;
+  border: 1px solid var(--red-border);
+  background: var(--red-bg);
+  color: var(--red-text);
+  cursor: pointer;
+  transition: all 0.15s;
+  font-family: 'Inter', sans-serif;
+}
+.label-del-btn:hover { background: rgba(240,62,62,0.18); }
+
+/* ── TRADINGVIEW CHART ── */
+.tv-chart-wrap {
+  position: relative;
+  width: 100%;
+  height: 320px;
+  background: var(--surface2);
+  border-radius: var(--r-sm);
+  overflow: hidden;
+}
+.tv-chart-wrap canvas { position: absolute; inset: 0; }
+.tv-range-btns {
+  display: flex;
+  gap: 4px;
+  margin-bottom: 12px;
+}
+.tv-range-btn {
+  padding: 5px 11px;
+  border-radius: 6px;
+  border: 1px solid var(--border);
+  background: transparent;
+  color: var(--text3);
+  font-family: 'Inter', sans-serif;
+  font-size: 11px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.15s;
+  letter-spacing: 0.02em;
+}
+.tv-range-btn:hover { background: var(--surface3); color: var(--text2); }
+.tv-range-btn.active { background: var(--accent); border-color: var(--accent); color: #fff; }
+.tv-header {
+  display: flex;
+  align-items: flex-start;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 10px;
+  margin-bottom: 12px;
+}
+.tv-price-main { font-size: 28px; font-weight: 800; letter-spacing: -0.04em; color: var(--green-text); }
+.tv-price-delta { font-size: 13px; font-weight: 600; margin-top: 2px; }
+.tv-price-delta.up { color: var(--green-text); }
+.tv-price-delta.down { color: var(--red-text); }
+.tv-ohlc {
+  display: flex;
+  gap: 16px;
+  font-size: 11px;
+  color: var(--text3);
+  flex-wrap: wrap;
+}
+.tv-ohlc span { display: flex; gap: 4px; }
+.tv-ohlc strong { color: var(--text2); }
+.tv-watermark {
+  position: absolute;
+  bottom: 10px;
+  left: 50%;
+  transform: translateX(-50%);
+  font-size: 11px;
+  color: rgba(255,255,255,0.04);
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  pointer-events: none;
+  white-space: nowrap;
+}
 </style>
 </head>
 <body>
@@ -1174,6 +1386,14 @@ input::placeholder { color: var(--text3); }
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M21 16V8a2 2 0 0 0-1-1.73l-7-4a2 2 0 0 0-2 0l-7 4A2 2 0 0 0 3 8v8a2 2 0 0 0 1 1.73l7 4a2 2 0 0 0 2 0l7-4A2 2 0 0 0 21 16z"/></svg>
       Magazyn
     </button>
+    <button class="nav" id="nav-vinted" onclick="showPage('vinted')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+      Etykiety Vinted
+    </button>
+    <button class="nav" id="nav-wykres" onclick="showPage('wykres')">
+      <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 7 13.5 15.5 8.5 10.5 2 17"/><polyline points="16 7 22 7 22 13"/></svg>
+      Wzrost firmy
+    </button>
     <button class="nav" id="nav-ustawienia" onclick="showPage('ustawienia')">
       <svg class="nav-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14M4.93 4.93a10 10 0 0 0 0 14.14"/></svg>
       Ustawienia
@@ -1257,6 +1477,17 @@ input::placeholder { color: var(--text3); }
           </div>
           <div class="stat-bar-wrap" id="top-flavors-chart"></div>
         </div>
+
+        <!-- PAYMENT METHODS CARD -->
+        <div class="card">
+          <div class="card-hd">
+            <span>Metody płatności</span>
+            <span class="card-hd-icon">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+            </span>
+          </div>
+          <div class="pay-stats-grid" id="pay-stats-pulpit"></div>
+        </div>
       </div>
 
       <!-- DODAJ -->
@@ -1275,6 +1506,23 @@ input::placeholder { color: var(--text3); }
             <button class="tx-btn" id="btn-type-order" onclick="setTxType('order')">
               <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="10"/><polyline points="12 6 12 12 16 14"/></svg>
               Rezerwacja
+            </button>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd">Metoda płatności</div>
+          <div class="pay-toggle">
+            <button class="pay-btn active-blik" id="pay-blik" onclick="setPayMethod('blik')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="2" width="14" height="20" rx="2"/><line x1="12" y1="18" x2="12.01" y2="18"/></svg>
+              BLIK
+            </button>
+            <button class="pay-btn" id="pay-cash" onclick="setPayMethod('cash')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="4" width="22" height="16" rx="2"/><line x1="1" y1="10" x2="23" y2="10"/></svg>
+              Gotówka
+            </button>
+            <button class="pay-btn" id="pay-vinted" onclick="setPayMethod('vinted')">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              Vinted
             </button>
           </div>
         </div>
@@ -1423,6 +1671,92 @@ input::placeholder { color: var(--text3); }
         </div>
       </div>
 
+      <!-- VINTED ETYKIETY -->
+      <div class="page" id="page-vinted">
+        <div class="page-header">
+          <div class="page-title">Etykiety Vinted</div>
+          <div class="page-desc">Wgraj etykiety PNG z zamówień Vinted — drukuj jednym kliknięciem</div>
+        </div>
+        <div class="card">
+          <div class="card-hd">
+            <span style="display:flex;align-items:center;gap:7px;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#09b08c" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="1" y="3" width="15" height="13"/><polygon points="16 8 20 8 23 11 23 16 16 16 16 8"/><circle cx="5.5" cy="18.5" r="2.5"/><circle cx="18.5" cy="18.5" r="2.5"/></svg>
+              Wgraj etykiety
+            </span>
+            <span id="label-count-badge" style="font-size:11px;color:var(--text3);">0 etykiet</span>
+          </div>
+          <div class="label-drop-zone" id="label-drop-zone" onclick="document.getElementById('label-file-input').click()"
+            ondragover="event.preventDefault();this.classList.add('drag-over')"
+            ondragleave="this.classList.remove('drag-over')"
+            ondrop="handleLabelDrop(event)">
+            <input type="file" id="label-file-input" accept="image/png,image/jpeg,image/webp" multiple style="display:none;" onchange="handleLabelFiles(this.files)" />
+            <div class="label-drop-zone-icon">📦</div>
+            <div class="label-drop-title">Przeciągnij etykiety lub kliknij, aby wgrać</div>
+            <div class="label-drop-desc">PNG, JPG, WEBP · możesz wgrać wiele naraz</div>
+          </div>
+          <div class="label-gallery" id="label-gallery"></div>
+        </div>
+        <div class="card">
+          <div class="card-hd">Drukuj wszystkie</div>
+          <div style="display:flex;gap:10px;flex-wrap:wrap;align-items:center;">
+            <button class="btn btn-p" onclick="printAllLabels()" style="background:linear-gradient(135deg,#09b08c,#07967a)!important;border-color:transparent!important;">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="6 9 6 2 18 2 18 9"/><path d="M6 18H4a2 2 0 0 1-2-2v-5a2 2 0 0 1 2-2h16a2 2 0 0 1 2 2v5a2 2 0 0 1-2 2h-2"/><rect x="6" y="14" width="12" height="8"/></svg>
+              Drukuj wszystkie etykiety
+            </button>
+            <button class="btn btn-d" onclick="clearAllLabels()">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14H6L5 6"/><path d="M10 11v6"/><path d="M14 11v6"/></svg>
+              Usuń wszystkie
+            </button>
+            <span style="font-size:12px;color:var(--text3);">Etykiety są przechowywane lokalnie w przeglądarce</span>
+          </div>
+        </div>
+      </div>
+
+      <!-- WYKRES WZROSTU -->
+      <div class="page" id="page-wykres">
+        <div class="page-header">
+          <div class="page-title">Wzrost firmy</div>
+          <div class="page-desc">Analiza przychodów i zysku w czasie — styl TradingView</div>
+        </div>
+        <div class="card">
+          <div class="tv-header">
+            <div>
+              <div style="font-size:11px;color:var(--text3);text-transform:uppercase;letter-spacing:0.06em;margin-bottom:4px;">WIFLUX · Zysk netto (PLN)</div>
+              <div class="tv-price-main" id="tv-current-price">0 zł</div>
+              <div class="tv-price-delta up" id="tv-delta">+0 zł (0%)</div>
+            </div>
+            <div>
+              <div class="tv-range-btns">
+                <button class="tv-range-btn active" onclick="setChartRange('1T',this)">1T</button>
+                <button class="tv-range-btn" onclick="setChartRange('1M',this)">1M</button>
+                <button class="tv-range-btn" onclick="setChartRange('3M',this)">3M</button>
+                <button class="tv-range-btn" onclick="setChartRange('ALL',this)">ALL</button>
+              </div>
+              <div class="tv-ohlc" id="tv-ohlc">
+                <span>O: <strong id="tv-o">—</strong></span>
+                <span>H: <strong id="tv-h">—</strong></span>
+                <span>L: <strong id="tv-l">—</strong></span>
+                <span>C: <strong id="tv-c">—</strong></span>
+              </div>
+            </div>
+          </div>
+          <div class="tv-chart-wrap">
+            <canvas id="tv-canvas"></canvas>
+            <div class="tv-watermark">WIFLUX · LIVE SALES OS</div>
+          </div>
+        </div>
+        <div class="card">
+          <div class="card-hd">Podział przychodów wg metody płatności</div>
+          <div class="pay-stats-grid" id="pay-stats-dashboard"></div>
+        </div>
+        <div class="card">
+          <div class="card-hd">
+            <span>Dzienny przychód (ostatnie 14 dni)</span>
+          </div>
+          <div class="stat-bar-wrap" id="daily-revenue-chart"></div>
+        </div>
+      </div>
+
     </div><!-- end .content -->
 
     <!-- SALE BAR -->
@@ -1443,9 +1777,7 @@ input::placeholder { color: var(--text3); }
 <div class="toast" id="toast"></div>
 
 <script>
-const BIN_ID = "6a08cf2e250b1311c35e42aa";
-const API_KEY = "$2a$10$pl2VTjrLjyOhVeayvqnub.X.KNbNET/a74aLX0KqYKt9uFwnlTu6O";
-const DB_URL = `https://api.jsonbin.io/v3/b/${BIN_ID}`;
+const DB_URL = "https://kvdb.io/MN8WTL69asVf3p6Yp4N77D/wiflux_state_v3";
 
 const INITIAL_STOCKS = {
   'Blueberry / Raspberry Pomegranate': 6, 'Apple / Peach': 6, 'Strawberry / Watermelon': 6,
@@ -1462,8 +1794,10 @@ const DEF_BUYERS = ['Anonimowy'];
 
 let state = { flavors: DEF_FLAVORS(), sales: [], buyers: [...DEF_BUYERS], orders: [] };
 let cfg = { ...DEF_SETTINGS };
-let selF = null, selB = null, qty = 1, txType = 'sale';
+let selF = null, selB = null, qty = 1, txType = 'sale', payMethod = 'blik';
 let isSaving = false;
+let chartRange = '1T';
+let vintedLabels = JSON.parse(localStorage.getItem('wiflux_labels') || '[]');
 
 // ── ANIMATED BACKGROUND ──
 const canvas = document.getElementById('bg-canvas');
@@ -1631,15 +1965,12 @@ async function init() {
 async function syncData() {
   if (isSaving) return;
   try {
-    const res = await fetch(DB_URL + '/latest', {
-      headers: { 'X-Master-Key': API_KEY }
-    });
+    const res = await fetch(DB_URL);
     if(!res.ok) return;
     const d = await res.json();
-    const record = d.record;
-    if (record && record.state) {
-      state = { buyers: [...DEF_BUYERS], orders: [], sales: [], flavors: DEF_FLAVORS(), ...record.state };
-      if (record.settings) cfg = { ...DEF_SETTINGS, ...record.settings };
+    if (d && d.state) {
+      state = { buyers: [...DEF_BUYERS], orders: [], sales: [], flavors: DEF_FLAVORS(), ...d.state };
+      if (d.settings) cfg = { ...DEF_SETTINGS, ...d.settings };
       renderAll();
     }
   } catch(e) {}
@@ -1649,11 +1980,8 @@ async function persist() {
   isSaving = true;
   try {
     await fetch(DB_URL, {
-      method: 'PUT',
-      headers: {
-        'Content-Type': 'application/json',
-        'X-Master-Key': API_KEY
-      },
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({ state, settings: cfg })
     });
   } catch(e) {
@@ -1708,10 +2036,12 @@ function renderAll() {
   renderBuyerChips();
   updateSaleBar();
   renderTopFlavors();
+  renderPayStats('pay-stats-pulpit');
 
   if(document.getElementById('page-zamowienia').classList.contains('active')) renderOrdersPage();
   if(document.getElementById('page-historia').classList.contains('active')) renderHistory();
   if(document.getElementById('page-magazyn').classList.contains('active')) renderMagazyn();
+  if(document.getElementById('page-wykres').classList.contains('active')) { renderTVChart(); renderDailyRevenueChart(); renderPayStats('pay-stats-dashboard'); }
 }
 
 function renderFlavorOverview() {
@@ -1819,7 +2149,7 @@ async function completeOrder(id) {
   const f = state.flavors.find(x => x.id === o.flavorId);
   if (!f || f.stock < o.qty) { toast('❌ Brak towaru w magazynie!'); return; }
   f.stock -= o.qty;
-  state.sales.push({ flavorId: o.flavorId, flavorName: o.flavorName, buyer: o.buyer, qty: o.qty, ts: Date.now() });
+  state.sales.push({ flavorId: o.flavorId, flavorName: o.flavorName, buyer: o.buyer, qty: o.qty, ts: Date.now(), payMethod: o.payMethod || 'blik' });
   o.status = 'completed';
   o.completedTs = Date.now();
   renderAll();
@@ -1912,11 +2242,11 @@ async function handleSubmit() {
   if (txType === 'sale') {
     if (f.stock < qty) { toast('❌ Za mało sztuk w magazynie!'); return; }
     f.stock -= qty;
-    state.sales.push({ flavorId: selF, flavorName: f.name, buyer: selB, qty, ts: Date.now() });
+    state.sales.push({ flavorId: selF, flavorName: f.name, buyer: selB, qty, ts: Date.now(), payMethod });
     toast('✓ Sprzedaż zarejestrowana!');
   } else {
     if(!state.orders) state.orders = [];
-    state.orders.push({ id: 'o' + Date.now(), flavorId: selF, flavorName: f.name, buyer: selB, qty, ts: Date.now(), status: 'pending' });
+    state.orders.push({ id: 'o' + Date.now(), flavorId: selF, flavorName: f.name, buyer: selB, qty, ts: Date.now(), status: 'pending', payMethod });
     toast('✓ Rezerwacja zapisana!');
   }
 
@@ -1931,15 +2261,20 @@ function renderHistory() {
   const q = document.getElementById('search-input')?.value.toLowerCase() || '';
   const list = state.sales.filter(s => s.flavorName.toLowerCase().includes(q) || (s.buyer && s.buyer.toLowerCase().includes(q))).slice().reverse();
   document.getElementById('sale-list-full').innerHTML = list.length
-    ? list.map((s, idx) => `<div class="sale-item">
+    ? list.map((s, idx) => {
+        const pm = s.payMethod || 'blik';
+        const pmLabel = pm === 'blik' ? 'BLIK' : pm === 'cash' ? 'Gotówka' : 'Vinted';
+        const pmClass = pm === 'blik' ? 'pb-blik' : pm === 'cash' ? 'pb-cash' : 'pb-vinted';
+        return `<div class="sale-item">
         <div class="avatar">${ini(s.buyer || 'AN')}</div>
-        <div class="si-info"><div class="si-who">${s.buyer || 'Anonimowy'}</div><div class="si-det">${s.flavorName} · ${s.qty} szt.</div></div>
+        <div class="si-info"><div class="si-who" style="display:flex;align-items:center;gap:6px;">${s.buyer || 'Anonimowy'}<span class="pay-badge ${pmClass}">${pmLabel}</span></div><div class="si-det">${s.flavorName} · ${s.qty} szt.</div></div>
         <div class="si-profit">+${fmt(s.qty*P())}</div>
         <div class="si-time">${fmtD(s.ts)}</div>
         <button class="btn btn-sm btn-d" onclick="deleteSale(${state.sales.lastIndexOf(s)})" style="padding:5px 9px;">
           <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
         </button>
-      </div>`).join('')
+      </div>`;
+      }).join('')
     : `<div class="empty">
         <div class="empty-icon"><svg width="28" height="28" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="22 12 18 12 15 21 9 3 6 12 2 12"/></svg></div>
         <div class="empty-title">Brak wyników</div>
@@ -2026,6 +2361,8 @@ function showPage(id) {
   if(id==='historia') renderHistory();
   if(id==='zamowienia') renderOrdersPage();
   if(id==='magazyn') renderMagazyn();
+  if(id==='vinted') renderLabelGallery();
+  if(id==='wykres') { renderTVChart(); renderDailyRevenueChart(); renderPayStats('pay-stats-dashboard'); }
 }
 
 function toast(msg) {
@@ -2033,6 +2370,344 @@ function toast(msg) {
   t.textContent = msg;
   t.classList.add('show');
   setTimeout(() => t.classList.remove('show'), 2200);
+}
+
+// ── PAYMENT METHOD ──
+function setPayMethod(method) {
+  payMethod = method;
+  ['blik','cash','vinted'].forEach(m => {
+    const btn = document.getElementById('pay-' + m);
+    if(btn) btn.className = 'pay-btn' + (m === method ? ' active-' + m : '');
+  });
+}
+
+// ── PAY STATS ──
+function renderPayStats(containerId) {
+  const el = document.getElementById(containerId);
+  if(!el) return;
+  const blik = state.sales.filter(s => (s.payMethod||'blik') === 'blik');
+  const cash = state.sales.filter(s => s.payMethod === 'cash');
+  const vinted = state.sales.filter(s => s.payMethod === 'vinted');
+  const sumRevenue = arr => arr.reduce((s,x) => s+x.qty*cfg.price, 0);
+  const sumQty = arr => arr.reduce((s,x) => s+x.qty, 0);
+  el.innerHTML = `
+    <div class="pay-stat" style="border-color:var(--green-border);">
+      <div class="pay-stat-icon">📱</div>
+      <div class="pay-stat-lbl">BLIK</div>
+      <div class="pay-stat-val" style="color:var(--green-text);">${fmt(sumRevenue(blik))}</div>
+      <div class="pay-stat-count">${sumQty(blik)} szt. · ${blik.length} transakcji</div>
+    </div>
+    <div class="pay-stat" style="border-color:var(--amber-border);">
+      <div class="pay-stat-icon">💵</div>
+      <div class="pay-stat-lbl">Gotówka</div>
+      <div class="pay-stat-val" style="color:var(--amber-text);">${fmt(sumRevenue(cash))}</div>
+      <div class="pay-stat-count">${sumQty(cash)} szt. · ${cash.length} transakcji</div>
+    </div>
+    <div class="pay-stat" style="border-color:rgba(9,176,140,0.3);">
+      <div class="pay-stat-icon">📦</div>
+      <div class="pay-stat-lbl">Vinted</div>
+      <div class="pay-stat-val" style="color:#09b08c;">${fmt(sumRevenue(vinted))}</div>
+      <div class="pay-stat-count">${sumQty(vinted)} szt. · ${vinted.length} transakcji</div>
+    </div>
+  `;
+}
+
+// ── VINTED LABELS ──
+function saveLabels() {
+  try { localStorage.setItem('wiflux_labels', JSON.stringify(vintedLabels)); } catch(e) {}
+}
+
+function handleLabelFiles(files) {
+  Array.from(files).forEach(file => {
+    const reader = new FileReader();
+    reader.onload = e => {
+      vintedLabels.push({ id: 'l' + Date.now() + Math.random(), name: file.name, data: e.target.result });
+      saveLabels();
+      renderLabelGallery();
+    };
+    reader.readAsDataURL(file);
+  });
+}
+
+function handleLabelDrop(e) {
+  e.preventDefault();
+  document.getElementById('label-drop-zone').classList.remove('drag-over');
+  handleLabelFiles(e.dataTransfer.files);
+}
+
+function renderLabelGallery() {
+  const gallery = document.getElementById('label-gallery');
+  const badge = document.getElementById('label-count-badge');
+  if(badge) badge.textContent = vintedLabels.length + ' etykiet' + (vintedLabels.length === 1 ? 'a' : (vintedLabels.length < 5 ? 'y' : ''));
+  if(!gallery) return;
+  gallery.innerHTML = vintedLabels.map(l => `
+    <div class="label-card" id="lc-${l.id}">
+      <img src="${l.data}" alt="${l.name}" />
+      <div class="label-card-footer">
+        <span class="label-name" title="${l.name}">${l.name}</span>
+        <div class="label-actions">
+          <button class="label-print-btn" onclick="printLabel('${l.id}')">🖨 Drukuj</button>
+          <button class="label-del-btn" onclick="deleteLabel('${l.id}')">✕</button>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function printLabel(id) {
+  const label = vintedLabels.find(l => l.id === id);
+  if(!label) return;
+  const win = window.open('', '_blank', 'width=800,height=600');
+  win.document.write(`<!DOCTYPE html><html><head><title>Etykieta - ${label.name}</title>
+    <style>*{margin:0;padding:0;box-sizing:border-box;}body{display:flex;align-items:center;justify-content:center;min-height:100vh;background:#fff;}
+    img{max-width:100%;max-height:100vh;object-fit:contain;}@media print{body{padding:0;}img{width:100%;height:auto;}}</style></head>
+    <body><img src="${label.data}" /><script>window.onload=()=>{window.print();setTimeout(()=>window.close(),500);}<\/script></body></html>`);
+  win.document.close();
+}
+
+function printAllLabels() {
+  if(!vintedLabels.length) { toast('Brak etykiet do wydruku!'); return; }
+  const win = window.open('', '_blank', 'width=900,height=700');
+  const imgs = vintedLabels.map(l => `<div class="page-break"><img src="${l.data}" alt="${l.name}" /></div>`).join('');
+  win.document.write(`<!DOCTYPE html><html><head><title>Etykiety Vinted</title>
+    <style>*{margin:0;padding:0;box-sizing:border-box;}body{background:#fff;}.page-break{page-break-after:always;display:flex;align-items:center;justify-content:center;min-height:100vh;padding:20px;}
+    img{max-width:100%;max-height:100vh;object-fit:contain;}@media print{.page-break{break-after:page;}}</style></head>
+    <body>${imgs}<script>window.onload=()=>{window.print();setTimeout(()=>window.close(),800);}<\/script></body></html>`);
+  win.document.close();
+}
+
+function deleteLabel(id) {
+  vintedLabels = vintedLabels.filter(l => l.id !== id);
+  saveLabels();
+  renderLabelGallery();
+}
+
+function clearAllLabels() {
+  if(!confirm('Usunąć wszystkie etykiety?')) return;
+  vintedLabels = [];
+  saveLabels();
+  renderLabelGallery();
+  toast('🗑 Etykiety usunięte');
+}
+
+// ── TRADINGVIEW CHART ──
+function setChartRange(range, btn) {
+  chartRange = range;
+  document.querySelectorAll('.tv-range-btn').forEach(b => b.classList.remove('active'));
+  if(btn) btn.classList.add('active');
+  renderTVChart();
+}
+
+function getChartData() {
+  const now = Date.now();
+  const dayMs = 86400000;
+  let cutoff = 0;
+  if(chartRange === '1T') cutoff = now - dayMs;
+  else if(chartRange === '1M') cutoff = now - 30 * dayMs;
+  else if(chartRange === '3M') cutoff = now - 90 * dayMs;
+
+  const sales = state.sales.filter(s => chartRange === 'ALL' || s.ts >= cutoff);
+
+  // Group by day
+  const byDay = {};
+  sales.forEach(s => {
+    const d = new Date(s.ts);
+    const key = d.toLocaleDateString('pl-PL', {day:'2-digit', month:'2-digit'});
+    if(!byDay[key]) byDay[key] = { label: key, profit: 0, revenue: 0, ts: s.ts };
+    byDay[key].profit += s.qty * P();
+    byDay[key].revenue += s.qty * cfg.price;
+  });
+
+  return Object.values(byDay).sort((a,b) => a.ts - b.ts);
+}
+
+function renderTVChart() {
+  const canvas = document.getElementById('tv-canvas');
+  if(!canvas) return;
+  const wrap = canvas.parentElement;
+  canvas.width = wrap.clientWidth || 600;
+  canvas.height = wrap.clientHeight || 320;
+  const ctx2 = canvas.getContext('2d');
+  const W = canvas.width, H = canvas.height;
+  const data = getChartData();
+
+  ctx2.clearRect(0, 0, W, H);
+
+  // Background
+  ctx2.fillStyle = 'rgba(22,22,30,0.0)';
+  ctx2.fillRect(0, 0, W, H);
+
+  if(!data.length) {
+    ctx2.fillStyle = 'rgba(136,136,160,0.4)';
+    ctx2.font = '14px Inter, sans-serif';
+    ctx2.textAlign = 'center';
+    ctx2.fillText('Brak danych dla wybranego okresu', W/2, H/2);
+    document.getElementById('tv-current-price').textContent = '0 zł';
+    document.getElementById('tv-delta').textContent = '+0 zł (0%)';
+    return;
+  }
+
+  const pad = { top: 20, right: 20, bottom: 40, left: 60 };
+  const cW = W - pad.left - pad.right;
+  const cH = H - pad.top - pad.bottom;
+
+  const profits = data.map(d => d.profit);
+  const maxV = Math.max(...profits, 1);
+  const minV = Math.min(...profits, 0);
+  const range = maxV - minV || 1;
+
+  const xStep = cW / Math.max(data.length - 1, 1);
+
+  const toX = i => pad.left + i * xStep;
+  const toY = v => pad.top + cH - ((v - minV) / range) * cH;
+
+  // Grid lines
+  const gridCount = 5;
+  ctx2.strokeStyle = 'rgba(255,255,255,0.04)';
+  ctx2.lineWidth = 1;
+  for(let i = 0; i <= gridCount; i++) {
+    const y = pad.top + (i / gridCount) * cH;
+    ctx2.beginPath();
+    ctx2.moveTo(pad.left, y);
+    ctx2.lineTo(W - pad.right, y);
+    ctx2.stroke();
+    // Y labels
+    const val = maxV - (i / gridCount) * range;
+    ctx2.fillStyle = 'rgba(136,136,160,0.7)';
+    ctx2.font = '10px Inter, sans-serif';
+    ctx2.textAlign = 'right';
+    ctx2.fillText(val.toFixed(0) + ' zł', pad.left - 6, y + 3);
+  }
+
+  // Area gradient fill
+  const grad = ctx2.createLinearGradient(0, pad.top, 0, pad.top + cH);
+  grad.addColorStop(0, 'rgba(0,214,143,0.25)');
+  grad.addColorStop(1, 'rgba(0,214,143,0.01)');
+
+  ctx2.beginPath();
+  data.forEach((d, i) => {
+    const x = toX(i), y = toY(d.profit);
+    if(i === 0) ctx2.moveTo(x, y);
+    else {
+      const px = toX(i-1), py = toY(data[i-1].profit);
+      const cpx = (px + x) / 2;
+      ctx2.bezierCurveTo(cpx, py, cpx, y, x, y);
+    }
+  });
+  ctx2.lineTo(toX(data.length - 1), pad.top + cH);
+  ctx2.lineTo(pad.left, pad.top + cH);
+  ctx2.closePath();
+  ctx2.fillStyle = grad;
+  ctx2.fill();
+
+  // Main line
+  ctx2.beginPath();
+  data.forEach((d, i) => {
+    const x = toX(i), y = toY(d.profit);
+    if(i === 0) ctx2.moveTo(x, y);
+    else {
+      const px = toX(i-1), py = toY(data[i-1].profit);
+      const cpx = (px + x) / 2;
+      ctx2.bezierCurveTo(cpx, py, cpx, y, x, y);
+    }
+  });
+  ctx2.strokeStyle = '#00D68F';
+  ctx2.lineWidth = 2.5;
+  ctx2.shadowColor = 'rgba(0,214,143,0.4)';
+  ctx2.shadowBlur = 8;
+  ctx2.stroke();
+  ctx2.shadowBlur = 0;
+
+  // Candlesticks (mini) on top if enough data
+  if(data.length > 1) {
+    const barW = Math.max(4, Math.min(14, xStep * 0.45));
+    data.forEach((d, i) => {
+      const open = i > 0 ? data[i-1].profit : d.profit * 0.9;
+      const close = d.profit;
+      const high = Math.max(open, close) * 1.03;
+      const low = Math.min(open, close) * 0.97;
+      const x = toX(i);
+      const isUp = close >= open;
+      const color = isUp ? '#00D68F' : '#F03E3E';
+      ctx2.strokeStyle = color;
+      ctx2.fillStyle = isUp ? 'rgba(0,214,143,0.7)' : 'rgba(240,62,62,0.7)';
+      ctx2.lineWidth = 1;
+      // wick
+      ctx2.beginPath();
+      ctx2.moveTo(x, toY(high));
+      ctx2.lineTo(x, toY(low));
+      ctx2.stroke();
+      // body
+      const bodyTop = toY(Math.max(open, close));
+      const bodyH = Math.max(2, Math.abs(toY(open) - toY(close)));
+      ctx2.fillRect(x - barW/2, bodyTop, barW, bodyH);
+    });
+  }
+
+  // Data point dots
+  data.forEach((d, i) => {
+    const x = toX(i), y = toY(d.profit);
+    ctx2.beginPath();
+    ctx2.arc(x, y, 3, 0, Math.PI * 2);
+    ctx2.fillStyle = '#00D68F';
+    ctx2.fill();
+    ctx2.strokeStyle = '#060608';
+    ctx2.lineWidth = 1.5;
+    ctx2.stroke();
+  });
+
+  // X labels
+  ctx2.fillStyle = 'rgba(136,136,160,0.6)';
+  ctx2.font = '10px Inter, sans-serif';
+  ctx2.textAlign = 'center';
+  const step = Math.max(1, Math.floor(data.length / 6));
+  data.forEach((d, i) => {
+    if(i % step === 0 || i === data.length - 1) {
+      ctx2.fillText(d.label, toX(i), H - pad.bottom + 16);
+    }
+  });
+
+  // Update header info
+  const last = data[data.length - 1];
+  const first = data[0];
+  const delta = last.profit - first.profit;
+  const pct = first.profit > 0 ? (delta / first.profit * 100).toFixed(1) : '∞';
+  document.getElementById('tv-current-price').textContent = fmt(last.profit);
+  const deltaEl = document.getElementById('tv-delta');
+  deltaEl.textContent = (delta >= 0 ? '+' : '') + fmt(delta) + ' (' + (delta >= 0 ? '+' : '') + pct + '%)';
+  deltaEl.className = 'tv-price-delta ' + (delta >= 0 ? 'up' : 'down');
+
+  document.getElementById('tv-o').textContent = fmt(first.profit);
+  document.getElementById('tv-h').textContent = fmt(Math.max(...profits));
+  document.getElementById('tv-l').textContent = fmt(Math.min(...profits));
+  document.getElementById('tv-c').textContent = fmt(last.profit);
+}
+
+function renderDailyRevenueChart() {
+  const el = document.getElementById('daily-revenue-chart');
+  if(!el) return;
+  const now = Date.now(), dayMs = 86400000;
+  const days = [];
+  for(let i = 13; i >= 0; i--) {
+    const t = now - i * dayMs;
+    const d = new Date(t);
+    const key = d.toLocaleDateString('pl-PL', {day:'2-digit', month:'2-digit'});
+    const rev = state.sales.filter(s => {
+      const sd = new Date(s.ts);
+      return sd.toLocaleDateString('pl-PL', {day:'2-digit', month:'2-digit'}) === key;
+    }).reduce((sum, s) => sum + s.qty * cfg.price, 0);
+    days.push({ label: key, rev });
+  }
+  const maxRev = Math.max(...days.map(d => d.rev), 1);
+  el.innerHTML = days.map(d => `
+    <div class="stat-bar-row">
+      <div class="stat-bar-label">${d.label}</div>
+      <div class="stat-bar-track">
+        <div class="stat-bar-fill" style="width:${Math.round(d.rev/maxRev*100)}%;background:linear-gradient(90deg,var(--accent),var(--green));"></div>
+      </div>
+      <div class="stat-bar-count" style="min-width:68px;">${d.rev > 0 ? fmt(d.rev) : '—'}</div>
+    </div>
+  `).join('');
 }
 
 init();
